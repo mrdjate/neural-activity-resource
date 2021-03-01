@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import InforFromId from './PatchClampDetails';
-import Button from '@material-ui/core/Button';
-
 
 
 const AN_EXAMPLE = false;
 const baseUrl ="https://neural-activity-resource.brainsimulation.eu"; 
 
-const baseUrlId ="https://neural-activity-resource.brainsimulation.eu/analyses/?attributed_to=Davison&size=10";
-/*"https://neural-activity-resource.brainsimulation.eu"*/
 
 
 function get_data(auth) {
-    let url = baseUrl + "/recordings/?summary=true"  
+    let url = baseUrl + "/recordings/"  
     
     let config = {
         headers: {
@@ -29,11 +24,11 @@ function get_data(auth) {
 
 
 
-export default function PatchClamp(props) {
+export default function PatchClampDetails(props) {
 
   const [recordings, setRecordings] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [theId, setTheId] = useState([]);
+  
 
   useEffect(()=>{
     if(AN_EXAMPLE){
@@ -69,10 +64,11 @@ export default function PatchClamp(props) {
           {
             recordings.map((recording, index)=>
             <div>
-            <Button variant="contained" color="primary" href='./PatchClampDetails'>
-              {recording.label}
-            </Button>       
-            </div>     
+              {recording.identifier} <br/>
+              {recording.label} <br/>
+              {recording.modality} <br/>
+              {recording.part_of.name} <br/>           
+            </div>         
             )              
           }   
         </li>  
@@ -82,4 +78,3 @@ export default function PatchClamp(props) {
     );
   } 
 }
-
